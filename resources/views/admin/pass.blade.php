@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="{{asset('resources/views/Admin/style/css/ch-ui.admin.css')}}">
-	<link rel="stylesheet" href="{{asset('resources/views/Admin/style/font/css/font-awesome.min.css')}}">
-    <script type="text/javascript" src="{{asset('resources/views/Admin/style/js/jquery.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/Admin/style/js/ch-ui.admin.js')}}"></script>
-</head>
-<body>
+@extends('layouts.layouts')
+@section('content')
     <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
@@ -24,26 +16,35 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="result_wrap">
-    <form method="post" onsubmit="return changePass()">
-        <input type="hidden" name="_token" value="X25wGVjFqDXvq7vAUAJTjTAHfX0RhkGufucRdzGh">
+    <form method="post" action="{{url('admin/index/pass')}}">
+        {{csrf_field()}}
         <table class="add_tab">
             <tbody>
             <tr>
+                <td colspan="2">
+                    @if(count($errors)>0)
+                        @foreach($errors->all() as $v)
+                            {{$v}}|
+                        @endforeach
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <th width="120"><i class="require">*</i>原密码：</th>
                 <td>
-                    <input type="password" name="password_o"> </i>请输入原始密码</span>
+                    <input type="password" name="password"> </i>请输入原始密码</span>
                 </td>
             </tr>
             <tr>
                 <th><i class="require">*</i>新密码：</th>
                 <td>
-                    <input type="password" name="password"> </i>新密码6-20位</span>
+                    <input type="password" name="nPassword"> </i>新密码6-20位</span>
                 </td>
             </tr>
             <tr>
                 <th><i class="require">*</i>确认密码：</th>
                 <td>
-                    <input type="password" name="password_c"> </i>再次输入密码</span>
+                    <input type="password" name="nPassword_confirmation"> </i>再次输入密码</span>
                 </td>
             </tr>
             <tr>
@@ -57,5 +58,4 @@
         </table>
     </form>
 </div>
-</body>
-</html>
+@stop
