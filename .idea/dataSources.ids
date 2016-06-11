@@ -8,34 +8,95 @@
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.2">
       <schema id="1" name="lar"/>
-      <table id="2" parent="1" name="bl_user"/>
-      <column id="3" parent="2" name="user_id">
+      <table id="2" parent="1" name="bl_admin"/>
+      <table id="3" parent="1" name="bl_category"/>
+      <column id="4" parent="2" name="admin_id">
         <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
+        <data-type>int(11)</data-type>
       </column>
-      <column id="4" parent="2" name="username">
+      <column id="5" parent="2" name="username">
         <mandatory>1</mandatory>
         <data-type>varchar(18)</data-type>
       </column>
-      <column id="5" parent="2" name="password">
+      <column id="6" parent="2" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="6" parent="2" name="login_time">
+      <column id="7" parent="2" name="login_time">
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <index id="7" parent="2" name="username">
+      <index id="8" parent="2" name="username">
         <columns>username</columns>
         <unique>1</unique>
       </index>
-      <key id="8" parent="2" name="PRIMARY">
-        <columns>user_id</columns>
+      <key id="9" parent="2" name="PRIMARY">
+        <columns>admin_id</columns>
         <primary>1</primary>
       </key>
-      <key id="9" parent="2" name="username">
+      <key id="10" parent="2" name="username">
         <columns>username</columns>
         <underlying-index>username</underlying-index>
+      </key>
+      <column id="11" parent="3" name="cate_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="12" parent="3" name="cate_name">
+        <comment>分类名称</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="13" parent="3" name="p_id">
+        <comment>父级分类ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="14" parent="3" name="cate_key">
+        <comment>关键词</comment>
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="15" parent="3" name="cate_desc">
+        <comment>描述</comment>
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="16" parent="3" name="cate_view">
+        <comment>查看次数</comment>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="17" parent="3" name="cate_order">
+        <comment>排序</comment>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="18" parent="3" name="is_del">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(4)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="19" parent="3" name="created_at">
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="20" parent="3" name="update_at">
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="21" parent="3" name="bl_category_cate_name_uindex">
+        <columns>cate_name</columns>
+        <unique>1</unique>
+      </index>
+      <key id="22" parent="3" name="bl_category_cate_name_uindex">
+        <columns>cate_name</columns>
+        <underlying-index>bl_category_cate_name_uindex</underlying-index>
+      </key>
+      <key id="23" parent="3" name="PRIMARY">
+        <columns>cate_id</columns>
+        <primary>1</primary>
       </key>
     </database-model>
   </data-source>

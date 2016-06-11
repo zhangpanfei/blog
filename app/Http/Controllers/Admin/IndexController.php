@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -30,8 +32,8 @@ class IndexController extends CommonController
     public function getPass(){
         return view('admin.pass');
     }
-    public function postPass(){
-        $input=Input::all();
+    public function postPass(Request $input){
+        /*$input=Input::all();
         $role=[
             'password'=>'required',
             'nPassword'=>'required|between:6,20|confirmed',
@@ -46,6 +48,21 @@ class IndexController extends CommonController
             return view('admin/index');
         }else{
             return back()->withErrors($validate);
+        }*/
+        $this->validate($input,[
+            'password'=>'required',
+            'nPassword'=>'required|between:5,20',
+        ]);
+        $data=$input->all();
+        $admin=session('admin');
+        if(Crypt::decrypt($admin->password)!=$data['password']){
+            return back()->with('msg','原密码错误');
         }
+        if($data['nPassword']!==$data['rPassword']){
+            return back()->with('msg','新密码不一致');
+        }
+        $userDB=new Admin();
+        $userDB->where('admin_id',$admin->admin_id)->update(['password'=>Crypt::encrypt($data['password'])]);
+        return redirect('admin/index/info');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\User;
+use App\Model\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,12 +21,12 @@ class LoginController extends CommonController
         //验证
         $data=Input::all();
         if(!$this->checkCode($data['code']))return view('admin.login')->with('msg','验证码错误');
-        $userDB=new User();
+        $userDB=new Admin();
         $row=$userDB->where(['username'=>$data['username']])->first();
         if(empty($row->username)||$data['username']!=$row->username||$data['password']!=Crypt::decrypt($row->password)){
             return view('admin.login')->with('msg','用户名或密码错误！');
         }
-        $userDB->where(['user_id'=>$row->user_id])->update(['login_time'=>time()]);
+        $userDB->where(['admin_id'=>$row->admin_id])->update(['login_time'=>time()]);
         session(['admin'=>$row]);
         return redirect('admin/index');
     }

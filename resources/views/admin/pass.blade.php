@@ -21,12 +21,13 @@
         <table class="add_tab">
             <tbody>
             <tr>
+                {{$msg or ''}}
                 <td colspan="2">
-                    @if(count($errors)>0)
-                        @foreach($errors->all() as $v)
-                            {{$v}}|
-                        @endforeach
-                    @endif
+                   @if(count($errors)>0)
+                       @foreach($errors->all() as $error)
+                           {{$error}}
+                       @endforeach
+                   @endif
                 </td>
             </tr>
             <tr>
@@ -44,7 +45,7 @@
             <tr>
                 <th><i class="require">*</i>确认密码：</th>
                 <td>
-                    <input type="password" name="nPassword_confirmation"> </i>再次输入密码</span>
+                    <input type="password" name="rPassword"> </i>再次输入密码</span>
                 </td>
             </tr>
             <tr>

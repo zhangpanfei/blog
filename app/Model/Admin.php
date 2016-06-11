@@ -4,11 +4,11 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Admin extends Model
 {
     //
-    protected $primaryKey='user_id';
-    protected $table='user';
+    protected $primaryKey='admin_id';
+    protected $table='admin';
     public $timestamps=false;
 
 }
