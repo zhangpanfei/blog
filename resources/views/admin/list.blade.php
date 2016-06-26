@@ -62,11 +62,11 @@
                     <tr>
                         <td class="tc"><input type="checkbox" name="id[]" value="{{$v->cate_id}}"></td>
                         <td class="tc">
-                            <input type="text" name="ord[]" value="{{$v->cate_order}}">
+                            <input type="text" name="ord[]" data-id="{{$v->cate_id}}" value="{{$v->cate_order}}">
                         </td>
                         <td class="tc">{{$v->cate_id}}</td>
                         <td>
-                            <a href="#">{{$v->cate_name}}</a>
+                            <a href="#">{{str_repeat('--',$v->level)}}{{$v->cate_name}}</a>
                         </td>
                         <td>
                             @if($v->is_del==0)
@@ -123,4 +123,39 @@
         </div>
     </form>
     <!--搜索结果页面 列表 结束-->
+
+    <script>
+        //排序列失去焦点出发ajax更新排序请求
+        $('[name="ord[]"]').on('blur',function(){
+            var xhr=new XMLHttpRequest();
+            xhr.open('POST','{{url("admin/cate/ajax")}}');
+            xhr.onload=function(){
+                if(this.status==200) {
+                    var json = JSON.parse(this.responseText);
+                    if(json.code==0)
+                        layer.alert('更新成功', {icon: 6});
+                    else
+                        layer.alert('更新失败', {icon: 5});
+                }else{
+                    layer.alert('服务器抽风中', {icon: 5});
+                }
+
+            }
+            var data=new FormData();
+            data.append('_token','{{csrf_token()}}');
+            data.append('cate_id',this.dataset.id);
+            data.append('ord',this.value);
+            data.append('action','order');
+            xhr.send(data);
+            /*$.ajax({
+                type:'POST',
+                url:'{{url('admin/cate/ajax')}}',
+                data:{_token:'{{csrf_token()}}',name:'zhang'},
+                success:function(msg){
+                    console.log(msg)
+                }
+
+            });*/
+        });
+    </script>
 @endsection

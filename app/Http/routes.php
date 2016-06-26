@@ -28,4 +28,5 @@ Route::controller('admin/login','admin\LoginController');
 Route::group(['prefix'=>'admin','namespace'=>'admin','middleware'=>['web','login']],function(){
     Route::controller('index','IndexController');
     Route::resource('cate','CategoryController');
+    Route::controller('cate','CategoryController');
 });

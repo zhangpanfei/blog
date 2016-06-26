@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="{{asset('resources/views/Admin/style/font/css/font-awesome.min.css')}}">
 	<script type="text/javascript" src="{{asset('resources/views/Admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/Admin/style/js/ch-ui.admin.js')}}"></script>
+    <script type="text/javascript" src="{{asset('org/js/layer.js')}}"></script>
 </head>
 <body>
 	@yield('content')
